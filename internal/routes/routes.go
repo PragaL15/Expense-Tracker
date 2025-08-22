@@ -15,7 +15,6 @@ func Register(app *fiber.App) {
 
 	// Protected
 	p := api.Group("", middleware.JWTProtected())
-
 	p.Get("/profile", handlers.Profile)
 
 	// Categories
