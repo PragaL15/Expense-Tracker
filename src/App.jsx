@@ -1,19 +1,41 @@
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Home from "./pages/Home";
+import AddExpense from "./pages/AddExpense";
+import Login from "./pages/Login"; // import the login page
+
+const isAuthenticated = () => {
+  return !!localStorage.getItem("token");
+};
+
+const ProtectedRoute = ({ children }) => {
+  return isAuthenticated() ? children : <Navigate to="/login" />;
+};
+
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold text-blue-600 mb-4">
-          Tailwind CSS v4 Working! 🎉
-        </h1>
-        <p className="text-gray-700">
-          Using the new Tailwind CSS v4 with Vite
-        </p>
-        <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-          Test Button
-        </button>
-      </div>
-    </div>
-  )
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add-expense"
+          element={
+            <ProtectedRoute>
+              <AddExpense />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/login" element={<Login />} /> {/* Actual login page */}
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
