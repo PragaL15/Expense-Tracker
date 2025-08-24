@@ -2,7 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import AddExpense from "./pages/AddExpense";
-import Login from "./pages/Login"; // import the login page
+import Login from "./pages/Login"; 
+import AddIncome from "./pages/AddIncome";
 
 const isAuthenticated = () => {
   return !!localStorage.getItem("token");
@@ -29,6 +30,14 @@ function App() {
           element={
             <ProtectedRoute>
               <AddExpense />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add-income"
+          element={
+            <ProtectedRoute>
+              <AddIncome />
             </ProtectedRoute>
           }
         />
