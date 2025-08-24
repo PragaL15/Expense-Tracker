@@ -8,6 +8,7 @@ import (
 	"github.com/PragaL15/Expense-Tracker/internal/database"
 	"github.com/PragaL15/Expense-Tracker/internal/routes"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 func main() {
@@ -17,11 +18,19 @@ func main() {
 
 	app := fiber.New()
 
-	// Simple health
+	// Enable CORS
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "http://localhost:5173", // your frontend URL
+		AllowMethods: "GET,POST,PUT,DELETE,OPTIONS",
+		AllowHeaders: "Content-Type, Authorization",
+	}))
+
+	// Simple health check
 	app.Get("/healthz", func(c *fiber.Ctx) error {
 		return c.SendString("ok")
 	})
 
+	// Register routes
 	routes.Register(app)
 
 	addr := fmt.Sprintf(":%s", cfg.Port)

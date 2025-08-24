@@ -3,12 +3,11 @@ package models
 import "time"
 
 type Category struct {
-	CategoryID string    `gorm:"type:uuid;default:uuid_generate_v4();primaryKey" json:"category_id"`
-	UserID     string    `gorm:"type:uuid;not null;index:uid_name,unique" json:"user_id"`
-	Name       string    `gorm:"not null;index:uid_name,unique" json:"name"`
-	Type       string    `gorm:"not null" json:"type"` // Income / Expense
-	Icon       *string   `json:"icon,omitempty"`
-	CreatedAt  time.Time `gorm:"autoCreateTime" json:"created_at"`
+	CategoryID string     `json:"category_id" gorm:"primaryKey;type:uuid;default:gen_random_uuid()"`
+	UserID     string     `json:"user_id"`
+	Name       string     `json:"name"`
+	Type       string     `json:"type"` // "Income" or "Expense"
+	Icon       *string    `json:"icon,omitempty"`
+	CreatedAt  time.Time  `json:"created_at"`
+	UpdatedAt  time.Time  `json:"updated_at"`
 }
-
-func (Category) TableName() string { return "categories" }
