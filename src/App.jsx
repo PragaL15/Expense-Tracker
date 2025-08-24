@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import AddExpense from "./pages/AddExpense";
 import Login from "./pages/Login"; 
 import AddIncome from "./pages/AddIncome";
+import TransactionHistory  from "./pages/TransactionHistory"
 
 const isAuthenticated = () => {
   return !!localStorage.getItem("token");
@@ -38,6 +39,14 @@ function App() {
           element={
             <ProtectedRoute>
               <AddIncome />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/transactionHistory"
+          element={
+            <ProtectedRoute>
+              <TransactionHistory />
             </ProtectedRoute>
           }
         />

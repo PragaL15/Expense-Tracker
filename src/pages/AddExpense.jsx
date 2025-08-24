@@ -66,7 +66,7 @@ const AddExpense = () => {
   
     setSubmitting(true);
     try {
-      await API.post("v1/transactions", {
+      await API.post("v1/transactions/expense", {
         amount: parseFloat(Number(amount).toFixed(2)), // ensure numeric
         category_id: category,                        // match backend
         transaction_type: "Expense",                  // or a state value
