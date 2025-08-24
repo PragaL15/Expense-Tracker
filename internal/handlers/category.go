@@ -1,122 +1,97 @@
 package handlers
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"gorm.io/gorm"
+    "github.com/gofiber/fiber/v2"
+    "gorm.io/gorm"
 
-	"github.com/PragaL15/Expense-Tracker/internal/database"
-	"github.com/PragaL15/Expense-Tracker/internal/models"
+    "github.com/PragaL15/Expense-Tracker/internal/database"
+    "github.com/PragaL15/Expense-Tracker/internal/models"
 )
 
 type categoryReq struct {
-	Name string  `json:"name" validate:"required"` // Mark as required
-	Type string  `json:"type" validate:"required,oneof=Income Expense"`
-	Icon *string `json:"icon,omitempty"`
+    Name string  `json:"name" validate:"required"`
+    Type string  `json:"type" validate:"required,oneof=Income Expense"`
+    Icon *string `json:"icon,omitempty"`
 }
 
-// CreateCategory creates a new category for the authenticated user
+// CreateCategory creates a new global category
 func CreateCategory(c *fiber.Ctx) error {
-	uid, ok := c.Locals("user_id").(string)
-	if !ok || uid == "" {
-		return fiber.NewError(fiber.StatusUnauthorized, "invalid user context")
-	}
+    var body categoryReq
+    if err := c.BodyParser(&body); err != nil {
+        return fiber.NewError(fiber.StatusBadRequest, "invalid JSON body")
+    }
 
-	var body categoryReq
-	if err := c.BodyParser(&body); err != nil {
-		return fiber.NewError(fiber.StatusBadRequest, "invalid JSON body")
-	}
+    if err := validate.Struct(body); err != nil {
+        return fiber.NewError(fiber.StatusBadRequest, err.Error())
+    }
 
-	// Validate inputs
-	if err := validate.Struct(body); err != nil {
-		return fiber.NewError(fiber.StatusBadRequest, err.Error())
-	}
+    cat := models.Category{
+        Name: body.Name,
+        Type: body.Type,
+        Icon: body.Icon,
+    }
 
-	cat := models.Category{
-		UserID: uid,
-		Name:   body.Name,
-		Type:   body.Type,
-		Icon:   body.Icon,
-	}
+    if err := database.DB.Create(&cat).Error; err != nil {
+        return fiber.NewError(fiber.StatusBadRequest, "duplicate category name")
+    }
 
-	if err := database.DB.Create(&cat).Error; err != nil {
-		return fiber.NewError(fiber.StatusBadRequest, "duplicate category name for this user")
-	}
-
-	// Return full category object
-	return c.Status(fiber.StatusCreated).JSON(cat)
+    return c.Status(fiber.StatusCreated).JSON(cat)
 }
 
-// ListCategories returns all categories belonging to the authenticated user
-// Accepts optional query param: ?type=Income or ?type=Expense
+// ListCategories returns all categories (global)
 func ListCategories(c *fiber.Ctx) error {
-	uid, ok := c.Locals("user_id").(string)
-	if !ok || uid == "" {
-		return fiber.NewError(fiber.StatusUnauthorized, "invalid user context")
-	}
+    categoryType := c.Query("type")
 
-	categoryType := c.Query("type")
+    var cats []models.Category
+    query := database.DB
+    if categoryType != "" {
+        query = query.Where("type = ?", categoryType)
+    }
 
-	var cats []models.Category
-	query := database.DB.Where("user_id = ?", uid)
-	if categoryType != "" {
-		query = query.Where("type = ?", categoryType)
-	}
+    if err := query.Order("name ASC").Find(&cats).Error; err != nil {
+        return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+    }
 
-	if err := query.Order("name ASC").Find(&cats).Error; err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
-	}
-
-	// Will return array of full category objects including `name`
-	return c.JSON(cats)
+    return c.JSON(cats)
 }
 
-// UpdateCategory updates a category for the authenticated user
+// UpdateCategory updates a global category
 func UpdateCategory(c *fiber.Ctx) error {
-	uid, ok := c.Locals("user_id").(string)
-	if !ok || uid == "" {
-		return fiber.NewError(fiber.StatusUnauthorized, "invalid user context")
-	}
+    id := c.Params("id")
+    var body categoryReq
+    if err := c.BodyParser(&body); err != nil {
+        return fiber.NewError(fiber.StatusBadRequest, "invalid JSON body")
+    }
 
-	id := c.Params("id")
-	var body categoryReq
-	if err := c.BodyParser(&body); err != nil {
-		return fiber.NewError(fiber.StatusBadRequest, "invalid JSON body")
-	}
+    if err := validate.Struct(body); err != nil {
+        return fiber.NewError(fiber.StatusBadRequest, err.Error())
+    }
 
-	if err := validate.Struct(body); err != nil {
-		return fiber.NewError(fiber.StatusBadRequest, err.Error())
-	}
+    var cat models.Category
+    if err := database.DB.First(&cat, "category_id = ?", id).Error; err != nil {
+        if err == gorm.ErrRecordNotFound {
+            return fiber.ErrNotFound
+        }
+        return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+    }
 
-	var cat models.Category
-	if err := database.DB.Where("category_id = ? AND user_id = ?", id, uid).First(&cat).Error; err != nil {
-		if err == gorm.ErrRecordNotFound {
-			return fiber.ErrNotFound
-		}
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
-	}
+    cat.Name = body.Name
+    cat.Type = body.Type
+    cat.Icon = body.Icon
 
-	cat.Name = body.Name
-	cat.Type = body.Type
-	cat.Icon = body.Icon
+    if err := database.DB.Save(&cat).Error; err != nil {
+        return fiber.NewError(fiber.StatusBadRequest, "duplicate category name")
+    }
 
-	if err := database.DB.Save(&cat).Error; err != nil {
-		return fiber.NewError(fiber.StatusBadRequest, "duplicate category name for this user")
-	}
-
-	return c.JSON(cat)
+    return c.JSON(cat)
 }
 
-// DeleteCategory deletes a category for the authenticated user
+// DeleteCategory deletes a global category
 func DeleteCategory(c *fiber.Ctx) error {
-	uid, ok := c.Locals("user_id").(string)
-	if !ok || uid == "" {
-		return fiber.NewError(fiber.StatusUnauthorized, "invalid user context")
-	}
+    id := c.Params("id")
+    if err := database.DB.Delete(&models.Category{}, "category_id = ?", id).Error; err != nil {
+        return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+    }
 
-	id := c.Params("id")
-	if err := database.DB.Where("category_id = ? AND user_id = ?", id, uid).Delete(&models.Category{}).Error; err != nil {
-		return fiber.NewError(fiber.StatusInternalServerError, err.Error())
-	}
-
-	return c.SendStatus(fiber.StatusNoContent)
+    return c.SendStatus(fiber.StatusNoContent)
 }
