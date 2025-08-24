@@ -50,7 +50,6 @@ const AddExpense = () => {
       parts.length > 2
         ? `${parts[0]}.${parts.slice(1).join("")}`
         : cleaned;
-    // keep as typed but soft-limit decimals
     const [intPart, decPart] = safe.split(".");
     const final =
       decPart && decPart.length > 2
