@@ -21,6 +21,7 @@ const TransactionHistory = () => {
       try {
         setLoading(true);
         setError("");
+        // Fetching the data from your backend
         const res = await API.get("v1/transactionHistory");
         setTransactions(res.data || []);
       } catch (err) {
@@ -33,6 +34,7 @@ const TransactionHistory = () => {
     fetchTransactions();
   }, []);
 
+  // Sorting logic based on selected option
   const sortedTransactions = [...transactions].sort((a, b) => {
     const dateA = new Date(a.date);
     const dateB = new Date(b.date);
@@ -49,10 +51,12 @@ const TransactionHistory = () => {
   });
 
   return (
-    <div className="max-w-sm mx-auto bg-white shadow-lg rounded-2xl">
-        <Header title= "Transaction History"/>
-        <div className="flex justify-between items-center mb-4 mt-3 ml-56">
-        <div className="relative w-40">
+    <div className="max-w-md mx-auto bg-white shadow-lg rounded-2xl ">
+      <Header title="Transaction History" />
+      
+      {/* Dropdown Sort Filter */}
+      <div className="flex justify-end mb-4 mt-3">
+        <div className="relative w-44">
           <div
             onClick={() => setOpen(!open)}
             className="bg-white border border-gray-300 rounded-xl py-2 px-3 flex justify-between items-center cursor-pointer focus:ring-2 focus:ring-yellow-400"
@@ -61,19 +65,12 @@ const TransactionHistory = () => {
               {sortOptions.find((opt) => opt.value === sortOption)?.label}
             </span>
             <svg
-              className={`w-4 h-4 transform transition-transform ${
-                open ? "rotate-180" : ""
-              }`}
+              className={`w-4 h-4 transform transition-transform ${open ? "rotate-180" : ""}`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </div>
           {open && (
@@ -101,15 +98,16 @@ const TransactionHistory = () => {
         <p className="text-gray-500 text-sm">No transactions found.</p>
       )}
 
+      {/* Transaction List */}
       <div className="space-y-3">
-        {sortedTransactions.map((txn, idx) => (
+        {sortedTransactions.map((txn) => (
           <div
-            key={idx}
+            key={txn.transaction_id}
             className="flex justify-between items-center p-3 bg-gray-50 rounded-xl shadow-sm"
           >
             <div>
               <p className="text-gray-800 font-medium">
-                {txn.title || txn.notes || "No Title"}
+                {txn.category_name || txn.notes || "No Title"}
               </p>
               <p className="text-gray-400 text-xs">
                 {new Date(txn.date).toLocaleDateString()}

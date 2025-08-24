@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Home from "./pages/Home";
 import AddExpense from "./pages/AddExpense";
 import Login from "./pages/Login"; 
+import SignUp from "./pages/signinPage"; 
 import AddIncome from "./pages/AddIncome";
 import TransactionHistory  from "./pages/TransactionHistory"
+
 
 const isAuthenticated = () => {
   return !!localStorage.getItem("token");
@@ -23,6 +25,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <ProtectedRoute>
+              < SignUp/>
             </ProtectedRoute>
           }
         />
