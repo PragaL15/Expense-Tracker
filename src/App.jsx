@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/signinPage"; 
 import AddIncome from "./pages/AddIncome";
 import TransactionHistory  from "./pages/TransactionHistory"
+import BudgetTracking from "./pages/BudgetTracking"
 
 
 const isAuthenticated = () => {
@@ -33,6 +34,14 @@ function App() {
           element={
             <ProtectedRoute>
               < SignUp/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/budgetTracking"
+          element={
+            <ProtectedRoute>
+              < BudgetTracking/>
             </ProtectedRoute>
           }
         />
