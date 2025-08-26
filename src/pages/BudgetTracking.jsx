@@ -24,7 +24,6 @@ const BudgetTracking = () => {
         const today = new Date();
         const period = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}`;
 
-        // Fetch budgets summary
         const summaryRes = await api.get("/v1/budgets/summary", {
           params: { period },
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
