@@ -39,8 +39,6 @@ const BudgetTracking = () => {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
 
-        console.log("Income API response:", incomeRes.data);
-
         // Flexible handling for API response keys
         const incomeTotal =
           incomeRes?.data?.total_amount ||
