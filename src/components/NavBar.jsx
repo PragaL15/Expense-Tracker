@@ -33,7 +33,6 @@ const Sidebar = () => {
 
   return (
     <div>
-      {/* ✅ Only show hamburger at the TOP */}
       {showHamburger && (
         <button
           className="fixed top-4 left-4 z-50 p-2 bg-yellow-400 text-white rounded-lg shadow-lg md:hidden"
@@ -62,7 +61,7 @@ const Sidebar = () => {
                   ? "bg-yellow-400 text-white"
                   : "text-gray-700 hover:bg-gray-100"
               }`}
-              onClick={() => setOpen(false)} // auto close when clicked
+              onClick={() => setOpen(false)} 
             >
               {item.name}
             </Link>
