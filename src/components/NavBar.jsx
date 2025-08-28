@@ -13,11 +13,8 @@ const Sidebar = () => {
     { name: "Add Income", path: "/add-income" },
     { name: "Transaction History", path: "/transactionHistory" },
     { name: "Budget Tracking", path: "/budgetTracking" },
-    { name: "Sign Up", path: "/register" },
-    { name: "Login", path: "/login" },
-  ];
 
-  // ✅ Handle scroll visibility
+  ];
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY === 0) {
