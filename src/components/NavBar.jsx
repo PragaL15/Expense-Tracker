@@ -18,7 +18,6 @@ const Sidebar = () => {
 
   return (
     <div>
-      {/* Hamburger button */}
       <button
         className="fixed top-4 left-4 z-50 p-2 bg-yellow-400 text-white rounded-lg shadow-lg md:hidden"
         onClick={() => setOpen(!open)}
@@ -26,7 +25,6 @@ const Sidebar = () => {
         {open ? <X size={24} /> : <Menu size={24} />}
       </button>
 
-      {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 z-40
         ${open ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
