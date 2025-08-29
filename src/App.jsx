@@ -47,7 +47,7 @@ function App() {
           />
           <Route path="/register" element={<SignUp />} />
           <Route
-            path="/budgetTracking"
+            path="/"
             element={
               <ProtectedRoute>
                 <BudgetTracking />

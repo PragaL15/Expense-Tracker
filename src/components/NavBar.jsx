@@ -12,7 +12,7 @@ const Sidebar = () => {
     { name: "Add Expense", path: "/add-expense" },
     { name: "Add Income", path: "/add-income" },
     { name: "Transaction History", path: "/transactionHistory" },
-    { name: "Budget Tracking", path: "/budgetTracking" },
+
 
   ];
   useEffect(() => {
