@@ -126,9 +126,9 @@ const BudgetTracking = () => {
               </div>
             </div>
 
-            <button className="mt-4 px-6 py-2 bg-yellow-400 rounded-xl font-medium text-white hover:bg-yellow-500">
+            {/* <button className="mt-4 px-6 py-2 bg-yellow-400 rounded-xl font-medium text-white hover:bg-yellow-500">
               Set Budget
-            </button>
+            </button> */}
 
             <div className="flex flex-col w-full mt-4 text-sm text-gray-600 space-y-2">
               <div className="flex justify-between">
