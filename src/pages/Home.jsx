@@ -21,8 +21,8 @@ const Home = () => {
     const fetchData = async () => {
       try {
         // Summary
-        const summaryRes = await API.get("v1/summary");
-        setSummary(summaryRes.data);
+        // const summaryRes = await API.get("v1/summary");
+        // setSummary(summaryRes.data);
 
         // Income transactions
         const incomeRes = await API.get("v1/transactions/income");
