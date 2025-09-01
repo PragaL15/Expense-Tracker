@@ -53,8 +53,6 @@ cd expense-tracker-frontend
 
 ```bash
 npm install
-# or
-yarn install
 ```
 
 ### Run Development Server
