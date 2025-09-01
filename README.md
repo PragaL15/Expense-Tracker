@@ -78,7 +78,6 @@ The app will be available at 👉 `http://localhost:5173` (Vite default)
 ## 🖼️ Screenshots
 
 ### Dashboard
-
 ![Dashboard Screenshot](https://via.placeholder.com/800x400.png?text=Expense+Tracker+Dashboard)
 
 ---
