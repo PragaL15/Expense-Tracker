@@ -53,7 +53,7 @@ const TransactionHistory = () => {
   return (
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-2xl ">
       <Header title="Transaction History" />
-      
+
       {/* Dropdown Sort Filter */}
       <div className="flex justify-end mb-4 mt-3">
         <div className="relative w-44">
@@ -65,12 +65,19 @@ const TransactionHistory = () => {
               {sortOptions.find((opt) => opt.value === sortOption)?.label}
             </span>
             <svg
-              className={`w-4 h-4 transform transition-transform ${open ? "rotate-180" : ""}`}
+              className={`w-4 h-4 transform transition-transform ${
+                open ? "rotate-180" : ""
+              }`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
             </svg>
           </div>
           {open && (
@@ -115,11 +122,13 @@ const TransactionHistory = () => {
             </div>
             <p
               className={`font-semibold ${
-                txn.amount > 0 ? "text-green-500" : "text-red-500"
+                txn.transaction_type === "Income"
+                  ? "text-green-500"
+                  : "text-red-500"
               }`}
             >
-              {txn.amount > 0
-                ? `₹${txn.amount.toLocaleString()}`
+              {txn.transaction_type === "Income"
+                ? `+ ₹${txn.amount.toLocaleString()}`
                 : `- ₹${Math.abs(txn.amount).toLocaleString()}`}
             </p>
           </div>
