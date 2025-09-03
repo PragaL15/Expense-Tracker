@@ -54,7 +54,6 @@ const TransactionHistory = () => {
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-2xl ">
       <Header title="Transaction History" />
 
-      {/* Dropdown Sort Filter */}
       <div className="flex justify-end mb-4 mt-3">
         <div className="relative w-44">
           <div
