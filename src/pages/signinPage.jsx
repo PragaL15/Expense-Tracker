@@ -25,7 +25,7 @@ const SignUp = () => {
       navigate("/v1/auth/login");
     } catch (err) {
       console.error(err);
-      setError("Sign up failed. Please try again.");
+      setError("Sign up failed.Please try again.");
     } finally {
       setLoading(false);
     }
