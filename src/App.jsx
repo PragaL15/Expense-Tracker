@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
 
   return (
     <div className="flex">
-      {!hideSidebar && <Sidebar />} {/* Only show sidebar if NOT login/signup */}
+      {!hideSidebar && <Sidebar />} 
       <div className={`${!hideSidebar ? "flex-1 md:ml-64 p-4" : "w-full"}`}>
         {children}
       </div>
