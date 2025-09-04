@@ -16,7 +16,6 @@ const ProtectedRoute = ({ children }) => {
   return isAuthenticated() ? children : <Navigate to="/login" />;
 };
 
-// ✅ Layout wrapper (hides Sidebar on login & register)
 const Layout = ({ children }) => {
   const location = useLocation();
   const hideSidebar = ["/login", "/register"].includes(location.pathname);
