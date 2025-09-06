@@ -45,7 +45,7 @@ expense-tracker-frontend/
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/yourusername/expense-tracker-frontend.git
+git clone https://github.com/PragaL15/expense-tracker-frontend.git
 cd expense-tracker-frontend
 ````
 
