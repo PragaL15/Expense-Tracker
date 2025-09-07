@@ -19,7 +19,6 @@ const ProtectedRoute = ({ children }) => {
 const Layout = ({ children }) => {
   const location = useLocation();
   const hideSidebar = ["/login", "/register"].includes(location.pathname);
-
   return (
     <div className="flex">
       {!hideSidebar && <Sidebar />} 
@@ -29,13 +28,11 @@ const Layout = ({ children }) => {
     </div>
   );
 };
-
 function App() {
   return (
     <Router>
       <Layout>
         <Routes>
-          
           <Route path="/register" element={<SignUp />} />
           <Route
             path="/"
