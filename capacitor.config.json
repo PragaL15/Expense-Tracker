@@ -1,0 +1,5 @@
+{
+  "appId": "com.pragal.expensetracker",
+  "appName": "expense-tracker-frontend",
+  "webDir": "dist"
+}
