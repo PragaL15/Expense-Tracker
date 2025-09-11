@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://expense-tracker-backend-1-70fb.onrender.com/api", // Change to your backend URL
+  baseURL: "https://expense-tracker-backend-1-70fb.onrender.com/api", 
 });
 
 // Add Authorization header if token exists
