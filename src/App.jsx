@@ -7,18 +7,19 @@ import AddIncome from "./pages/AddIncome";
 import TransactionHistory from "./pages/TransactionHistory";
 import BudgetTracking from "./pages/BudgetTracking";
 import Sidebar from "./components/NavBar";
+import Logout from "./pages/logout";
 
 const isAuthenticated = () => {
   return !!localStorage.getItem("token");
 };
 
 const ProtectedRoute = ({ children }) => {
-  return isAuthenticated() ? children : <Navigate to="/login" />;
+  return isAuthenticated() ? children : <Navigate to="/" />;
 };
 
 const Layout = ({ children }) => {
   const location = useLocation();
-  const hideSidebar = ["/login", "/register"].includes(location.pathname);
+  const hideSidebar = ["/", "/register", "/logout"].includes(location.pathname);
   return (
     <div className="flex">
       {!hideSidebar && <Sidebar />} 
@@ -28,20 +29,27 @@ const Layout = ({ children }) => {
     </div>
   );
 };
+
 function App() {
   return (
     <Router>
       <Layout>
         <Routes>
+          {/* Login page as root path */}
+          <Route path="/" element={<Login />} />
+          
           <Route path="/register" element={<SignUp />} />
+          
+          {/* Updated budget tracking route */}
           <Route
-            path="/"
+            path="/budgetTracking"
             element={
               <ProtectedRoute>
                 <BudgetTracking />
               </ProtectedRoute>
             }
           />
+          
           <Route
             path="/add-expense"
             element={
@@ -50,6 +58,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          
           <Route
             path="/add-income"
             element={
@@ -58,6 +67,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          
           <Route
             path="/transactionHistory"
             element={
@@ -66,10 +76,15 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/login" element={<Login />} />
+          
+          <Route path="/logout" element={<Logout />} />
+          
+          {/* Redirect any unknown routes to the login page */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Layout>
     </Router>
   );
 }
+
 export default App;
