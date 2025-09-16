@@ -36,9 +36,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Login />} />
-          
           <Route path="/register" element={<SignUp />} />
-          
           <Route
             path="/budgetTracking"
             element={
@@ -47,7 +45,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          
           <Route
             path="/add-expense"
             element={
@@ -56,7 +53,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          
           <Route
             path="/add-income"
             element={
@@ -65,7 +61,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          
           <Route
             path="/transactionHistory"
             element={
@@ -74,7 +69,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-          
           <Route path="/logout" element={<Logout />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
