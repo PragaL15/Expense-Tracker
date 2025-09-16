@@ -35,7 +35,6 @@ function App() {
     <Router>
       <Layout>
         <Routes>
-          {/* Login page as root path */}
           <Route path="/" element={<Login />} />
           
           <Route path="/register" element={<SignUp />} />
