@@ -79,7 +79,6 @@ function App() {
           
           <Route path="/logout" element={<Logout />} />
           
-          {/* Redirect any unknown routes to the login page */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Layout>
