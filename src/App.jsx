@@ -40,7 +40,6 @@ function App() {
           
           <Route path="/register" element={<SignUp />} />
           
-          {/* Updated budget tracking route */}
           <Route
             path="/budgetTracking"
             element={
@@ -78,12 +77,10 @@ function App() {
           />
           
           <Route path="/logout" element={<Logout />} />
-          
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Layout>
     </Router>
   );
 }
-
 export default App;
