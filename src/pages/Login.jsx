@@ -16,7 +16,6 @@ const Login = () => {
     try {
       const { data } = await API.post("/v1/auth/login", { email, password });
 
-      // Save token if backend returns it
       if (data.token) {
         localStorage.setItem("token", data.token);
 
