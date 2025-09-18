@@ -16,13 +16,14 @@ const Login = () => {
     try {
       const { data } = await API.post("/v1/auth/login", { email, password });
 
-      // Save token if your backend returns it
+      // Save token if backend returns it
       if (data.token) {
         localStorage.setItem("token", data.token);
-      }
 
-      // Redirect to dashboard
-      navigate("/");
+        navigate("/budgetTracking");
+      } else {
+        setError("No token received. Login failed.");
+      }
     } catch (err) {
       console.error(err);
       setError(
@@ -69,7 +70,7 @@ const Login = () => {
           </button>
         </form>
         <p className="mt-4 text-center text-gray-500">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <span
             className="text-blue-600 hover:underline cursor-pointer"
             onClick={() => navigate("/register")}
