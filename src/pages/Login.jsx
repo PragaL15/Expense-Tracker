@@ -1,7 +1,7 @@
 // src/pages/Login.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import API from "../utils/api"; 
+import API from "../utils/api"; // axios instance
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,10 +18,8 @@ const Login = () => {
 
       if (data.token) {
         localStorage.setItem("token", data.token);
-
-        navigate("/budgetTracking");
-      } else {
-        setError("No token received. Login failed.");
+        // ✅ Redirect straight to budget tracking
+        navigate("/budgetTracking", { replace: true });
       }
     } catch (err) {
       console.error(err);
@@ -69,7 +67,7 @@ const Login = () => {
           </button>
         </form>
         <p className="mt-4 text-center text-gray-500">
-          Don&apos;t have an account?{" "}
+          Don't have an account?{" "}
           <span
             className="text-blue-600 hover:underline cursor-pointer"
             onClick={() => navigate("/register")}
