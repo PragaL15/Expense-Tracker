@@ -1,79 +1,84 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
-import AddExpense from "./pages/AddExpense";
-import Login from "./pages/Login"; 
-import SignUp from "./pages/signinPage"; 
-import AddIncome from "./pages/AddIncome";
-import TransactionHistory from "./pages/TransactionHistory";
-import BudgetTracking from "./pages/BudgetTracking";
-import Sidebar from "./components/NavBar";
-import Logout from "./pages/logout";
+// src/pages/Login.jsx
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import API from "../utils/api"; // axios instance
 
-const isAuthenticated = () => {
-  return !!localStorage.getItem("token");
-};
+const Login = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-const ProtectedRoute = ({ children }) => {
-  return isAuthenticated() ? children : <Navigate to="/" />;
-};
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
 
-const Layout = ({ children }) => {
-  const location = useLocation();
-  const hideSidebar = ["/", "/register", "/logout"].includes(location.pathname);
+    try {
+      const { data } = await API.post("/v1/auth/login", { email, password });
+
+      // Save token
+      if (data.token) {
+        localStorage.setItem("token", data.token);
+        // ✅ Redirect straight to budgetTracking
+        navigate("/budgetTracking");
+      }
+    } catch (err) {
+      console.error(err);
+      setError(
+        err.response?.data?.message || "Login failed. Please try again."
+      );
+    }
+  };
+
   return (
-    <div className="flex">
-      {!hideSidebar && <Sidebar />} 
-      <div className={`${!hideSidebar ? "flex-1 md:ml-64 p-4" : "w-full"}`}>
-        {children}
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-600 to-indigo-600">
+      <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+          Login
+        </h2>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
+        <form onSubmit={handleLogin} className="space-y-4">
+          <div>
+            <label className="block text-gray-700 mb-2">Email</label>
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 rounded-lg p-2"
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 mb-2">Password</label>
+            <input
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full border-gray-300 focus:ring-blue-500 focus:border-blue-500 rounded-lg p-2"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg"
+          >
+            Login
+          </button>
+        </form>
+        <p className="mt-4 text-center text-gray-500">
+          Don't have an account?{" "}
+          <span
+            className="text-blue-600 hover:underline cursor-pointer"
+            onClick={() => navigate("/register")}
+          >
+            Sign up
+          </span>
+        </p>
       </div>
     </div>
   );
 };
 
-function App() {
-  return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<SignUp />} />
-          <Route
-            path="/budgetTracking"
-            element={
-              <ProtectedRoute>
-                <BudgetTracking />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/add-expense"
-            element={
-              <ProtectedRoute>
-                <AddExpense />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/add-income"
-            element={
-              <ProtectedRoute>
-                <AddIncome />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/transactionHistory"
-            element={
-              <ProtectedRoute>
-                <TransactionHistory />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Layout>
-    </Router>
-  );
-}
-export default App;
+export default Login;
