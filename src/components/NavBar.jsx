@@ -12,7 +12,6 @@ const Sidebar = () => {
 
   return (
     <div>
-      {/* Hamburger button (only on mobile) */}
       <button
         className="fixed top-4 left-4 z-50 p-2 bg-yellow-400 text-white rounded-lg shadow-lg md:hidden"
         onClick={() => setOpen(!open)}
