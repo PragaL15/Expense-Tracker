@@ -19,8 +19,6 @@ const Sidebar = () => {
       >
         {open ? <X size={28} /> : <Menu size={28} />}
       </button>
-
-      {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-full w-64 bg-yellow-400 text-white shadow-lg transform transition-transform duration-300 z-40
         ${open ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
