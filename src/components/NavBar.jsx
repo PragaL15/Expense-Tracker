@@ -12,7 +12,7 @@ const Sidebar = () => {
   };
 
   const navItems = [
-    { name: "Dashboard", path: "/" },
+    { name: "Dashboard", path: "/BudgetTracking" },
     { name: "Add Income", path: "/add-income" },
     { name: "Add Expense", path: "/add-expense" },
     { name: "History", path: "/transactionHistory" },
@@ -20,7 +20,6 @@ const Sidebar = () => {
 
   return (
     <div>
-      {/* Hamburger button */}
       <button
         className="fixed top-4 left-4 z-50 p-2 bg-yellow-400 text-white rounded-lg shadow-lg md:hidden"
         onClick={() => setOpen(!open)}

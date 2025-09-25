@@ -150,7 +150,7 @@ const AddExpense = () => {
             <div className="text-gray-500 text-sm mb-2">Notes (Optional)</div>
             <textarea
               rows={4}
-              className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-yellow-400 placeholder-gray-400"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3 focus:outline-none focus:ring-2 focus:ring-#FEFAE0 placeholder-gray-400"
               placeholder="Add any specific details about this expense..."
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
@@ -165,7 +165,7 @@ const AddExpense = () => {
           <button
             onClick={handleSubmit}
             disabled={submitting}
-            className="w-full bg-yellow-400 hover:bg-yellow-500 disabled:opacity-60 text-black font-semibold rounded-xl py-3 shadow-md transition"
+            className="w-full bg-[#3a5a40] hover:bg-[#3d7147] disabled:opacity-60 text-[#FEFAE0] font-semibold rounded-xl py-3 shadow-md transition"
           >
             {submitting ? "Adding..." : "Add Expense"}
           </button>

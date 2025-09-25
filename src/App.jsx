@@ -34,7 +34,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/budgetTracking" element={<BudgetTracking />} />
+        {/* Public Routes */}
+        <Route path="/" element={<Login />} />
         <Route path="/register" element={<SignUp />} />
 
         {/* Protected Routes inside Layout */}

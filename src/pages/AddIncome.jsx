@@ -159,7 +159,7 @@ const AddIncome = () => {
           <button
             onClick={handleSubmit}
             disabled={submitting}
-            className="w-full bg-yellow-400 hover:bg-yellow-500 disabled:opacity-60 text-black font-semibold rounded-xl py-3 shadow-md transition"
+            className="w-full bg-[#3A5A40] hover:bg-[#3A5A40] disabled:opacity-60 text-[#FEFAE0] font-semibold rounded-xl py-3 shadow-md transition"
           >
             {submitting ? "Adding..." : "Add Income"}
           </button>
