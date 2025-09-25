@@ -7,7 +7,7 @@ const TransactionList = ({ transactions }) => {
       {transactions.map((tx, index) => (
         <div
           key={index}
-          className="flex justify-between bg-white rounded-xl shadow p-3 mb-2"
+          className="flex justify-between bg-[#dcf9ab] rounded-xl shadow p-3 mb-2"
         >
           <div>
             <p className="font-medium">{tx.title}</p>

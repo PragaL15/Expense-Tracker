@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react"; 
+import { Menu, X } from "lucide-react";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
@@ -16,23 +16,34 @@ const Sidebar = () => {
     { name: "Add Income", path: "/add-income" },
     { name: "Add Expense", path: "/add-expense" },
     { name: "History", path: "/transactionHistory" },
+    { name: "Logout", path: "/" }
   ];
 
   return (
     <div>
-      <button
-        className="fixed top-4 left-4 z-50 p-2 bg-yellow-400 text-white rounded-lg shadow-lg md:hidden"
-        onClick={() => setOpen(!open)}
-      >
-        {open ? <X size={28} /> : <Menu size={28} />}
-      </button>
+      {!open && (
+        <button
+          className="fixed top-5 left-4 z-50 p-2 bg-[#3A5A40] text-white rounded-lg shadow-lg md:hidden"
+          onClick={() => setOpen(true)}
+        >
+          <Menu size={28} />
+        </button>
+      )}
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-yellow-400 text-white shadow-lg transform transition-transform duration-300 z-40
+        className={`fixed top-0 left-0 h-full w-64 bg-[#3A5A40] text-white shadow-lg transform transition-transform duration-300 z-40
         ${open ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
       >
+        <button
+          className="absolute top-2 right-2 p-2 bg-white text-[#3A5A40] rounded-lg md:hidden"
+          onClick={() => setOpen(false)}
+        >
+          <X size={28} />
+        </button>
+
         <h2 className="text-xl font-bold p-4">Finance Tracker</h2>
+
         <nav>
           <ul>
             {navItems.map((item) => (
@@ -41,8 +52,8 @@ const Sidebar = () => {
                   to={item.path}
                   className={`block py-2 px-4 rounded transition-colors ${
                     location.pathname === item.path
-                      ? "bg-yellow-600 text-white" // Active page
-                      : "hover:bg-yellow-300 hover:text-black"
+                      ? "bg-white text-[#3A5A40]" // Active page
+                      : "hover:bg-white hover:text-[#3A5A40]"
                   }`}
                   onClick={() => setOpen(false)}
                 >
@@ -51,17 +62,17 @@ const Sidebar = () => {
               </li>
             ))}
 
-            <li className="mt-6 border-t border-yellow-300 pt-4">
+            {/* <li className="mt-6 border-t border-white pt-4">
               <button
                 onClick={() => {
                   setOpen(false);
                   handleLogout();
                 }}
-                className="w-full text-left py-2 px-4 rounded transition-colors hover:bg-yellow-300 hover:text-black"
+                className="w-full text-left py-2 px-4 rounded transition-colors hover:bg-white hover:text-[#3A5A40]"
               >
                 Logout
               </button>
-            </li>
+            </li> */}
           </ul>
         </nav>
       </div>

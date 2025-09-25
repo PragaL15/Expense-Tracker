@@ -47,7 +47,7 @@ const CategoryDropdown = ({ categories, category, setCategory }) => {
               <div
                 key={c.category_id}
                 onClick={() => handleSelect(c.category_id)}
-                className="px-4 py-2 text-gray-700 hover:bg-yellow-100 cursor-pointer"
+                className="px-4 py-2 text-gray-700 hover:bg-[#dad7cd] cursor-pointer"
               >
                 {c.name}
               </div>

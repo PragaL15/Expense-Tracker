@@ -80,7 +80,7 @@ const TransactionHistory = () => {
             </svg>
           </div>
           {open && (
-            <div className="absolute z-10 mt-1 w-full bg-white border border-gray-200 rounded-xl shadow-lg">
+            <div className="absolute z-10 mt-1 w-full bg-[#dcf9ab] border border-gray-200 rounded-xl shadow-lg">
               {sortOptions.map((opt) => (
                 <div
                   key={opt.value}
@@ -109,7 +109,7 @@ const TransactionHistory = () => {
         {sortedTransactions.map((txn) => (
           <div
             key={txn.transaction_id}
-            className="flex justify-between items-center p-3 bg-gray-50 rounded-xl shadow-sm"
+            className="flex justify-between items-center p-3 bg-[#eef7dc] rounded-xl shadow-sm"
           >
             <div>
               <p className="text-gray-800 font-medium">
