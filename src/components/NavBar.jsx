@@ -30,7 +30,6 @@ const Sidebar = () => {
         </button>
       )}
 
-      {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-full w-64 bg-[#3A5A40] text-white shadow-lg transform transition-transform duration-300 z-40
         ${open ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
@@ -52,7 +51,7 @@ const Sidebar = () => {
                   to={item.path}
                   className={`block py-2 px-4 rounded transition-colors ${
                     location.pathname === item.path
-                      ? "bg-white text-[#3A5A40]" // Active page
+                      ? "bg-white text-[#3A5A40]" 
                       : "hover:bg-white hover:text-[#3A5A40]"
                   }`}
                   onClick={() => setOpen(false)}
@@ -61,18 +60,6 @@ const Sidebar = () => {
                 </Link>
               </li>
             ))}
-
-            {/* <li className="mt-6 border-t border-white pt-4">
-              <button
-                onClick={() => {
-                  setOpen(false);
-                  handleLogout();
-                }}
-                className="w-full text-left py-2 px-4 rounded transition-colors hover:bg-white hover:text-[#3A5A40]"
-              >
-                Logout
-              </button>
-            </li> */}
           </ul>
         </nav>
       </div>
