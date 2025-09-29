@@ -4,6 +4,7 @@ import AddExpense from "./pages/AddExpense";
 import Login from "./pages/Login"; 
 import SignUp from "./pages/signinPage"; 
 import AddIncome from "./pages/AddIncome";
+import AddInvestment from "./pages/AddInvestment";
 import TransactionHistory from "./pages/TransactionHistory";
 import BudgetTracking from "./pages/BudgetTracking";
 import Sidebar from "./components/NavBar";
@@ -55,6 +56,16 @@ function App() {
             <ProtectedRoute>
               <Layout>
                 <AddExpense />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add-investment"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <AddInvestment />
               </Layout>
             </ProtectedRoute>
           }
