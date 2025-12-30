@@ -12,9 +12,10 @@ const Sidebar = () => {
   };
 
   const navItems = [
-    { name: "Dashboard", path: "/BudgetTracking" },
+    
     { name: "Add Income", path: "/add-income" },
     { name: "Add Expense", path: "/add-expense" },
+    { name: "Dashboard", path: "/BudgetTracking" },
     { name: "History", path: "/transactionHistory" },
     { name: "Logout", path: "/" }
   ];
