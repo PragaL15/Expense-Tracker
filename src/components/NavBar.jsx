@@ -15,7 +15,7 @@ const Sidebar = () => {
     
     { name: "Add Income", path: "/add-income" },
     { name: "Add Expense", path: "/add-expense" },
-    { name: "Dashboard", path: "/BudgetTracking" },
+    { name: "Dashboard", path: "/budgetTracking" },
     { name: "History", path: "/transactionHistory" },
     { name: "Logout", path: "/" }
   ];
