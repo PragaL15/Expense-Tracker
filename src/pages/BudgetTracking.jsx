@@ -165,4 +165,4 @@ const BudgetTracking = () => {
   );
 };
 
-export default budgetTracking;
+export default BudgetTracking;
